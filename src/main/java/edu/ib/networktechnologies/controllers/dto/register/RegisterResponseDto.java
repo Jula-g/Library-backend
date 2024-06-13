@@ -5,25 +5,25 @@ import edu.ib.networktechnologies.commonTypes.UserRole;
 public class RegisterResponseDto {
 
     private long userId;
-
     private String username;
+    private String token;
+    private UserRole role;
 
-    private String role;
-
-    private String email;
-
-    public RegisterResponseDto() {
-    }
-
-    public RegisterResponseDto(long userId, String username, String role, String email) {
+    public RegisterResponseDto(long userId, String username, String token, String role) {
         this.userId = userId;
         this.username = username;
-        this.role = role;
-        this.email = email;
+        this.token = token;
+        this.role = UserRole.valueOf(role);
     }
 
-    public RegisterResponseDto(String username, UserRole role, String email) {
+    public String getToken() {
+        return token;
     }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 
     public long getUserId() {
         return userId;
@@ -41,19 +41,11 @@ public class RegisterResponseDto {
         this.username = username;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

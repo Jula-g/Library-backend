@@ -2,46 +2,29 @@ package edu.ib.networktechnologies.controllers.dto.loans;
 
 import jakarta.validation.constraints.NotNull;
 
-import java.sql.Date;
-
 public class CreateLoanDto {
 
     @NotNull
-    private Date dueDate;
-
-    @NotNull
-    private Long userId;
+    private String dueDate;
 
     @NotNull
     private Long bookId;
 
-    public CreateLoanDto() {
-    }
-
-    public CreateLoanDto( Date dueDate, long userId, long bookId) {
-        this.dueDate = dueDate;
-        this.userId = userId;
+    public CreateLoanDto( String dueDate, long bookId) {
         this.bookId = bookId;
+        this.dueDate = dueDate;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public void setBookId(long bookId) {
         this.bookId = bookId;
-    }
-
-    public long getUserId() {
-        return userId;
     }
 
     public long getBookId() {

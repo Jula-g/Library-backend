@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/book")
-@PreAuthorize("hasRole('ADMIN')")
 public class BookController {
     private final BookService bookService;
 
@@ -22,45 +21,44 @@ public class BookController {
 
     }
     @GetMapping("/getAll")
-    @PreAuthorize("isAuthenticated()")
-    public List<GetBookDto> getAll() {
+    public List<GetBookDetailsDto> getAll() {
         return bookService.getAll();
     }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<GetBookDto> getOne(@PathVariable long id) {
-        GetBookDto dto = bookService.getOne(id);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<GetBookDetailsDto> getOne(@PathVariable long id) {
+        GetBookDetailsDto dto = bookService.getOne(id);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-   @DeleteMapping("/{id}")
+   @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
         bookService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CreateBookResponseDto> create(@RequestBody CreateBookDto book) {
+    public ResponseEntity<CreateBookDetailsResponseDto> create(@RequestBody CreateBookDto book) {
         var newBook = bookService.create(book);
         return new ResponseEntity<>(newBook, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{bookId}/details")
-    public ResponseEntity<UpdateBookDetailsResponseDto> updateDetails(@RequestBody UpdateBookDetailsDto detailsDto, @PathVariable long bookId) {
-        var newDetails = bookService.updateDetails(detailsDto, bookId);
-        return new ResponseEntity<>(newDetails, HttpStatus.OK);
-    }
-
-    @PostMapping("/{bookId}/details")
-    public ResponseEntity<CreateBookDetailsResponseDto> createDetails(@RequestBody CreateBookDetailsDto detailsDto, @PathVariable long bookId) {
-        var newDetails = bookService.createDetails(detailsDto, bookId);
-        return new ResponseEntity<>(newDetails, HttpStatus.OK);
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<CreateBookDetailsResponseDto> update(@RequestBody UpdateBookDto book, @PathVariable long id) {
+        var newBook = bookService.update(book, id);
+        return new ResponseEntity<>(newBook, HttpStatus.OK);
     }
 
     @GetMapping("/{bookId}/details")
     public ResponseEntity<GetBookDetailsDto> getDetails(@PathVariable long bookId) {
         var details = bookService.getDetails(bookId);
         return new ResponseEntity<>(details, HttpStatus.OK);
+    }
+
+    @GetMapping("/getBookByTitle/{title}")
+    public ResponseEntity<GetBookDetailsDto> getBookByTitle(@PathVariable String title) {
+        System.out.println("title: " + title);
+        var book = bookService.getBookByTitle(title);
+        return new ResponseEntity<>(book, HttpStatus.OK);
     }
 }

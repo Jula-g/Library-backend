@@ -2,6 +2,7 @@ package edu.ib.networktechnologies.controllers.dto.books;
 
 public class CreateBookDetailsResponseDto {
 
+    private long bookId;
     private String isbn;
 
     private String title;
@@ -16,7 +17,8 @@ public class CreateBookDetailsResponseDto {
 
     private BookDetailsDto bookDetails;
 
-    public CreateBookDetailsResponseDto(String isbn, String title, String author, String publisher, int yearPublished, int availableCopies, BookDetailsDto bookDetails) {
+    public CreateBookDetailsResponseDto(long bookId, String isbn, String title, String author, String publisher, int yearPublished, int availableCopies, BookDetailsDto bookDetails) {
+        this.bookId = bookId;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -26,7 +28,12 @@ public class CreateBookDetailsResponseDto {
         this.bookDetails = bookDetails;
     }
 
-    public CreateBookDetailsResponseDto() {
+    public long getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(long bookId) {
+        this.bookId = bookId;
     }
 
     public String getIsbn() {

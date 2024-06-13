@@ -7,8 +7,6 @@ public class PatchUserResponseDto {
     private String lastName;
     private String email;
 
-    public PatchUserResponseDto() {
-    }
 
     public PatchUserResponseDto(long id, String firstName, String lastName, String email) {
         this.id = id;

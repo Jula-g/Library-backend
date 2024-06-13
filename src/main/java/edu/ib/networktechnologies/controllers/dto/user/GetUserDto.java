@@ -9,14 +9,11 @@ public class GetUserDto {
 
     private String lastName;
 
-    public GetUserDto(long id, String name, String email, String lastName) {
+    public GetUserDto(long id, String name, String lastName, String email) {
         this.id = id;
         this.name = name;
-        this.email = email;
         this.lastName = lastName;
-    }
-
-    public GetUserDto() {
+        this.email = email;
     }
 
     public long getId() {

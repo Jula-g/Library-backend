@@ -8,8 +8,6 @@ public class BookDetailsDto {
 
     private String coverUrl;
 
-    public BookDetailsDto() {
-    }
 
     public BookDetailsDto(String genre, String summary, String coverUrl) {
         this.genre = genre;

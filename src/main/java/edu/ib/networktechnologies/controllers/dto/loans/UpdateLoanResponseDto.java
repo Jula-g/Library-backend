@@ -2,18 +2,20 @@ package edu.ib.networktechnologies.controllers.dto.loans;
 
 import java.sql.Date;
 
-public class CreateLoanResponseDto {
+public class UpdateLoanResponseDto {
 
     private Date loanDate;
     private Date dueDate;
     private long userId;
     private long bookId;
+private Date returnDate;
 
-    public CreateLoanResponseDto(Date loanDate, Date dueDate, long userId, long bookId) {
+    public UpdateLoanResponseDto(Date loanDate, Date dueDate, long userId, long bookId, Date returnDate) {
         this.loanDate = loanDate;
         this.dueDate = dueDate;
         this.userId = userId;
         this.bookId = bookId;
+        this.returnDate = returnDate;
     }
 
     public Date getDueDate() {
@@ -47,5 +49,13 @@ public class CreateLoanResponseDto {
 
     public void setLoanDate(Date loanDate) {
         this.loanDate = loanDate;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 }

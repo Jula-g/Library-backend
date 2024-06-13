@@ -8,4 +8,7 @@ public class BookNotFoundException {
     public static ResponseStatusException create(Long id) {
         return new ResponseStatusException(HttpStatus.NOT_FOUND, "Book with id " + id + " not found");
     }
+    public static ResponseStatusException create(String title) {
+        return new ResponseStatusException(HttpStatus.NOT_FOUND, "Book with title " + title + " not found");
+    }
 }

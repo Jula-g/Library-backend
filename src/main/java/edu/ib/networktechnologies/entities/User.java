@@ -1,9 +1,7 @@
 package edu.ib.networktechnologies.entities;
 
-import edu.ib.networktechnologies.commonTypes.UserRole;
 import jakarta.persistence.*;
 
-import java.util.List;
 
 @Entity
 public class User {
@@ -23,8 +21,6 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Loan> loans;
 
     public long getUserId() {
         return userId;
@@ -58,11 +54,4 @@ public class User {
         this.lastName = lastName;
     }
 
-    public List<Loan> getLoans() {
-        return loans;
-    }
-
-    public void setLoans(List<Loan> loans) {
-        this.loans = loans;
-    }
 }

@@ -61,12 +61,25 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(token).getPayload();
+    }
+
+    public long getUserIdFromToken(String token) {
+        String jwt = token.replace("Bearer ", "");
+        Claims claims = extractAllClaims(jwt);
+        return claims.get("userId", Long.class);
+    }
+
+    public String getUserRoleFromToken(String token) {
+        String jwt = token.replace("Bearer ", "");
+        Claims claims = extractAllClaims(jwt);
+        return claims.get("role", String.class);
     }
 
     private String generateToken(Map<String, Object> extraClaims, Auth userDetail) {
         extraClaims.put("role", userDetail.getRole());
+        extraClaims.put("userId", userDetail.getUser().getUserId());
         return Jwts.builder()
                 .claims(extraClaims)
                 .subject(userDetail.getUsername())
@@ -75,6 +88,7 @@ public class JwtService {
                 .signWith(getSignInKey())
                 .compact();
     }
+
     private SecretKey getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
         return Keys.hmacShaKeyFor(keyBytes);

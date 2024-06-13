@@ -5,6 +5,7 @@ import edu.ib.networktechnologies.controllers.dto.login.LoginResponseDto;
 import edu.ib.networktechnologies.controllers.dto.register.RegisterDto;
 import edu.ib.networktechnologies.controllers.dto.register.RegisterResponseDto;
 import edu.ib.networktechnologies.services.AuthService;
+import edu.ib.networktechnologies.services.JwtService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,12 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
-@PreAuthorize("hasRole('ADMIN')")
 public class AuthController {
     private final AuthService authService;
 
     @Autowired
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, JwtService jwtService) {
         this.authService = authService;
     }
 
@@ -38,6 +38,5 @@ public class AuthController {
     public ResponseEntity<LoginResponseDto> login(@RequestBody LoginDto login) {
     LoginResponseDto dto = authService.login(login);
     return new ResponseEntity<>(dto, HttpStatus.CREATED);
-
     }
 }

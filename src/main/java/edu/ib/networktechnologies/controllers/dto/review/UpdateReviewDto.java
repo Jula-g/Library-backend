@@ -1,24 +1,13 @@
 package edu.ib.networktechnologies.controllers.dto.review;
 
+public class UpdateReviewDto {
 
-public class CreateReviewDto {
-    private long userId;
     private String rating;
     private String comment;
 
-    public CreateReviewDto(long userId, String rating, String comment) {
-        this.userId = userId;
+    public UpdateReviewDto(String rating, String comment) {
         this.rating = rating;
         this.comment = comment;
-
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public String getRating() {
@@ -36,4 +25,5 @@ public class CreateReviewDto {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
 }

@@ -14,6 +14,7 @@ public class CreateBookDto {
 
     private int availableCopies;
 
+
     public CreateBookDto(String isbn, String title, String author, String publisher, int yearPublished, int availableCopies) {
         this.isbn = isbn;
         this.title = title;
@@ -21,9 +22,6 @@ public class CreateBookDto {
         this.publisher = publisher;
         this.yearPublished = yearPublished;
         this.availableCopies = availableCopies;
-    }
-
-    public CreateBookDto() {
     }
 
     public String getIsbn() {
@@ -73,4 +71,6 @@ public class CreateBookDto {
     public void setAvailableCopies(int availableCopies) {
         this.availableCopies = availableCopies;
     }
+
+
 }

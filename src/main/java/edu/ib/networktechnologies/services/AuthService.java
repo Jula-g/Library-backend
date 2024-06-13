@@ -1,5 +1,6 @@
 package edu.ib.networktechnologies.services;
 
+import edu.ib.networktechnologies.commonTypes.UserRole;
 import edu.ib.networktechnologies.exceptions.UserAlreadyExistsException;
 import edu.ib.networktechnologies.controllers.dto.login.LoginDto;
 import edu.ib.networktechnologies.controllers.dto.login.LoginResponseDto;
@@ -11,7 +12,6 @@ import edu.ib.networktechnologies.repositories.AuthRepository;
 import edu.ib.networktechnologies.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,17 +44,22 @@ public class AuthService {
 
         User user = new User();
         user.setEmail(registerDto.getEmail());
+        user.setName(registerDto.getName());
+        user.setLastName(registerDto.getLastName());
        userRepository.save(user);
 
         Auth auth = new Auth();
         auth.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         auth.setUsername(registerDto.getUsername());
-        auth.setRole(registerDto.getRole());
+        auth.setRole(UserRole.ROLE_READER);
         auth.setUser(user);
+
+        String token = jwtService.generateToken(auth);
         authRepository.save(auth);
-        return new RegisterResponseDto(auth.getUsername(), auth.getRole(), user.getEmail());
+
+        return new RegisterResponseDto(auth.getId(), auth.getUsername(), token, auth.getRole().toString());
     }
-@PreAuthorize("hasRole('ADMIN')")
+
     public LoginResponseDto login(LoginDto login) {
         Auth auth = authRepository.findByUsername(login.getUsername()).orElseThrow(RuntimeException::new);
 
@@ -63,6 +68,10 @@ public class AuthService {
         }
 
         String token = jwtService.generateToken(auth);
-        return new LoginResponseDto(token);
+        return new LoginResponseDto(token, auth.getUser().getUserId());
+    }
+
+    public void delete(long id) {
+        authRepository.deleteByUserUserId(id);
     }
 }

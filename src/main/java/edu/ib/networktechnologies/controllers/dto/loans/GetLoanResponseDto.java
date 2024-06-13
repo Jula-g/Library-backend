@@ -1,27 +1,26 @@
 package edu.ib.networktechnologies.controllers.dto.loans;
 
+import edu.ib.networktechnologies.controllers.dto.books.GetBookDetailsDto;
 import edu.ib.networktechnologies.controllers.dto.user.GetUserDto;
-import edu.ib.networktechnologies.controllers.dto.books.GetBookDto;
 
 import java.sql.Date;
 
 public class GetLoanResponseDto {
 
-    private long id;
+    private long loanId;
     private Date loanDate;
     private Date dueDate;
-    private GetUserDto userId;
-    private GetBookDto bookId;
+    private GetUserDto user;
+    private GetBookDetailsDto book;
+    private Date returnDate;
 
-    public GetLoanResponseDto() {
-    }
-
-    public GetLoanResponseDto(long id, Date loanDate, Date dueDate, GetUserDto userId, GetBookDto bookId) {
-        this.id = id;
+    public GetLoanResponseDto(long loanId, Date loanDate, Date dueDate, GetUserDto user, GetBookDetailsDto book, Date returnDate) {
+        this.loanId = loanId;
         this.loanDate = loanDate;
         this.dueDate = dueDate;
-        this.userId = userId;
-        this.bookId = bookId;
+        this.user = user;
+        this.book = book;
+        this.returnDate = returnDate;
     }
 
     public Date getDueDate() {
@@ -32,28 +31,28 @@ public class GetLoanResponseDto {
         this.dueDate = dueDate;
     }
 
-    public void setUserId(GetUserDto userId) {
-        this.userId = userId;
+    public void setUser(GetUserDto user) {
+        this.user = user;
     }
 
-    public void setBookId(GetBookDto bookId) {
-        this.bookId = bookId;
+    public void setBook(GetBookDetailsDto book) {
+        this.book = book;
     }
 
-    public GetUserDto getUserId() {
-        return userId;
+    public GetUserDto getUser() {
+        return user;
     }
 
-    public GetBookDto getBookId() {
-        return bookId;
+    public GetBookDetailsDto getBook() {
+        return book;
     }
 
-    public long getId() {
-        return id;
+    public long getLoanId() {
+        return loanId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(long loanId) {
+        this.loanId = loanId;
     }
 
     public Date getLoanDate() {
@@ -62,5 +61,17 @@ public class GetLoanResponseDto {
 
     public void setLoanDate(Date loanDate) {
         this.loanDate = loanDate;
+    }
+
+    public void setLoanId(long loanId) {
+        this.loanId = loanId;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 }
